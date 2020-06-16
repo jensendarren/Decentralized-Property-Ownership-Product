@@ -10,6 +10,16 @@ This project uses ZoKrates for implementing zkSNARKS. To run ZoKrates in a Docke
 docker run -v $(pwd)/zokrates/code:/home/zokrates/code -ti zokrates/zokrates:0.4.6 /bin/bash
 ```
 
+In the running container bash session run the following to confirm ZoKrates is configured correctly:
+
+```
+~/zokrates compile -i ./code/zokrates/code/square/
+~/zokrates setup
+~/zokrates compute-witness -a 2 4
+~/zokrates generate-proof
+~/zokrates export-verifier
+```
+
 # Project Resources
 
 * [Remix - Solidity IDE](https://remix.ethereum.org/)

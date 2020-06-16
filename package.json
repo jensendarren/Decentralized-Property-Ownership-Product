@@ -1,8 +1,8 @@
 {
-  "name": "capstone",
+  "name": "udacity-blockchain-capstone",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Udacity Blockchain Capstone: Decentralized Housing Product",
+  "main": "truffle-config.js",
   "scripts": {
     "dev": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,8 @@
   "dependencies": {
     "openzeppelin-solidity": "^2.2.0",
     "solc": "^0.5.2",
-    "solc-js": "^0.5.2"
+    "solc-js": "^0.5.2",
+    "truffle-assertions": "^0.9.2",
+    "truffle-hdwallet-provider": "^1.0.2"
   }
 }
