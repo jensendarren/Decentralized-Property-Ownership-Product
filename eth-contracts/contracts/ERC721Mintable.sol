@@ -33,7 +33,9 @@ contract Ownable {
 //  5) create a Paused & Unpaused event that emits the address that triggered the event
 
 contract Pausable is Ownable {
+    constructor() public{
 
+    }
 }
 
 contract ERC165 {
