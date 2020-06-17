@@ -1,27 +1,29 @@
 pragma solidity ^0.5.0;
 
-import 'openzeppelin-solidity/contracts/utils/Address.sol';
-import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
-import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
-import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
-import "./Oraclize.sol";
+import '../../node_modules/openzeppelin-solidity/contracts/utils/Address.sol';
+import '../../node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol';
+import '../../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol';
+import '../../node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
+// import "./Oraclize.sol";
 
 contract Ownable {
     address private _owner;
-    constructor() internal {
+    constructor() public {
         _owner = msg.sender;
+        emit ContractOwnershipTransferEvent(address(0x0), _owner);
     }
+
     modifier onlyOwner() {
         require(msg.sender == _owner, 'Caller is not the contract owner.');
         _;
     }
     //  5) create an event that emits anytime ownerShip is transfered (including in the constructor)
-    event ContractOwnershipTransferEvent(address newOwner);
+    event ContractOwnershipTransferEvent(address oldOwner, address newOwner);
 
     function transferOwnership(address newOwner) public onlyOwner {
         require(address(newOwner) != address(0x0), 'New owner must be a valid address');
+        emit ContractOwnershipTransferEvent(_owner, newOwner);
         _owner = newOwner;
-        emit ContractOwnershipTransferEvent(newOwner);
     }
 }
 
@@ -74,7 +76,7 @@ contract ERC165 {
     }
 }
 
-contract ERC721 is Pausable, ERC165 {
+contract ERC721Mintable is Pausable, ERC165 {
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 
@@ -251,7 +253,7 @@ contract ERC721 is Pausable, ERC165 {
     }
 }
 
-contract ERC721Enumerable is ERC165, ERC721 {
+contract ERC721Enumerable is ERC165, ERC721Mintable {
     // Mapping from owner to list of owned token IDs
     mapping(address => uint256[]) private _ownedTokens;
 
@@ -423,7 +425,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
     }
 }
 
-contract ERC721Metadata is ERC721Enumerable, usingOraclize {
+contract ERC721Metadata is ERC721Enumerable {//, usingOraclize {
 
     // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
 
@@ -470,6 +472,3 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -takes in a 'to' address, tokenId, and tokenURI as parameters
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
-
-
-
