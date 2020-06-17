@@ -27,16 +27,39 @@ contract Ownable {
     }
 }
 
-//  TODO's: Create a Pausable contract that inherits from the Ownable contract
-//  1) create a private '_paused' variable of type bool
-//  2) create a public setter using the inherited onlyOwner modifier
-//  3) create an internal constructor that sets the _paused variable to false
+
 //  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
-//  5) create a Paused & Unpaused event that emits the address that triggered the event
 
 contract Pausable is Ownable {
-    constructor() public{
+    bool private _paused;
 
+    event PausedEvent(address caller);
+    event UnpausedEvent(address caller);
+
+    modifier whenNotPaused() {
+        require(!_paused, 'Cannot execute. Contract is paused.');
+        _;
+    }
+
+    modifier paused() {
+        require(_paused, 'Contract not is paused.');
+        _;
+    }
+
+    function isPaused() public view returns (bool) {
+        return _paused;
+    }
+
+    function setPaused(bool paused) public onlyOwner {
+        require(paused != _paused, 'The new paused state should be different from the current paused state.');
+        _paused = paused;
+        if (_paused) emit PausedEvent(msg.sender);
+        if (!_paused) emit UnpausedEvent(msg.sender);
+    }
+
+    constructor() public{
+        _paused = false;
+        emit UnpausedEvent(msg.sender);
     }
 }
 
