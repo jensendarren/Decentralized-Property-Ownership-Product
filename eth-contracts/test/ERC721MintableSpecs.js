@@ -13,6 +13,7 @@ contract('ERC721Mintable contract', accounts => {
     const tokenId1 = 8;
     const tokenId2 = 88;
     const tokenId3 = 888;
+    const nonExistentToken = 8888888888;
     let erc721mintable;
 
     describe('match erc721 spec', function () {
@@ -89,6 +90,15 @@ contract('ERC721Mintable contract', accounts => {
                                 e.approved == newTokenOwner &&
                                 e.tokenId == tokenId1;
                     })
+                })
+                it('should revert if getApproved is for a token that does not exist yet', async () => {
+                    await truffleAssert.reverts(
+                        erc721mintable.getApproved(nonExistentToken),
+                        'Token does not exist'
+                    )
+                })
+                it('should get the approval operator address', async () => {
+                    expect(await erc721mintable.getApproved(tokenId1)).to.be.eq(newTokenOwner);
                 })
             })
         })
