@@ -1,7 +1,7 @@
 const ERC165TestContract = artifacts.require('ERC165TestContract');
 const truffleAssert = require('truffle-assertions');
 
-contract('Ownable Contract', accounts => {
+contract('ERC165 Contract', accounts => {
 
   const owner = accounts[0];
   const INTERFACE_ID_ERC165 = '0x01ffc9a7'
@@ -9,7 +9,7 @@ contract('Ownable Contract', accounts => {
 
   let ownable;
 
-  describe('ownership properties', function () {
+  describe('ERC165 properties', function () {
     before(async () => {
       erc165 = await ERC165TestContract.new({from: owner});
     })

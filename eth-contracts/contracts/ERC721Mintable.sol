@@ -144,8 +144,7 @@ contract ERC721Mintable is Pausable, ERC165 {
     }
 
     function balanceOf(address owner) public view returns (uint256) {
-        // TODO return the token balance of given address
-        // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
+        return _ownedTokensCount[owner].current();
     }
 
     function ownerOf(uint256 tokenId) public view returns (address) {
@@ -231,12 +230,14 @@ contract ERC721Mintable is Pausable, ERC165 {
     // @dev Internal function to mint a new token
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
     function _mint(address to, uint256 tokenId) internal {
+        require(to != address(0x0), 'Address is not valid');
+        require(_tokenOwner[tokenId] == address(0x0), 'Token already exists');
 
-        // TODO revert if given tokenId already exists or given address is invalid
+        // mint tokenId to given address & increase token count of owner
+        _tokenOwner[tokenId] = to;
+        _ownedTokensCount[to].increment();
 
-        // TODO mint tokenId to given address & increase token count of owner
-
-        // TODO emit Transfer event
+        emit Transfer(msg.sender, to, tokenId);
     }
 
     // @dev Internal function to transfer ownership of a given token ID to another address.
@@ -279,6 +280,15 @@ contract ERC721Mintable is Pausable, ERC165 {
         if (_tokenApprovals[tokenId] != address(0)) {
             _tokenApprovals[tokenId] = address(0);
         }
+    }
+}
+
+// Contract to enable testing of ERC721Mintable
+contract ERC721MintableTestContract is ERC721Mintable {
+    constructor() public {}
+
+    function mint(address to, uint256 tokenId) public {
+        super._mint(to, tokenId);
     }
 }
 
@@ -337,7 +347,7 @@ contract ERC721Enumerable is ERC165, ERC721Mintable {
      * @return uint256 token ID at the given index of the tokens list
      */
     function tokenByIndex(uint256 index) public view returns (uint256) {
-        require(index < totalSupply());
+        require(index < totalSupply(), 'Token index out of bounds');
         return _allTokens[index];
     }
 
