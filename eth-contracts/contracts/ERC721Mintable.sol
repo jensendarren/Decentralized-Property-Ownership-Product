@@ -1,9 +1,9 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.5;
 
-import '../../node_modules/openzeppelin-solidity/contracts/utils/Address.sol';
-import '../../node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol';
-import '../../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol';
-import '../../node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
+import 'openzeppelin-solidity/contracts/utils/Address.sol';
+import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
+import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
+import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
 // import "./Oraclize.sol";
 
 contract Ownable {
@@ -27,9 +27,6 @@ contract Ownable {
     }
 }
 
-
-//  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
-
 contract Pausable is Ownable {
     bool private _paused;
 
@@ -50,9 +47,9 @@ contract Pausable is Ownable {
         return _paused;
     }
 
-    function setPaused(bool paused) public onlyOwner {
-        require(paused != _paused, 'The new paused state should be different from the current paused state.');
-        _paused = paused;
+    function setPaused(bool state) public onlyOwner {
+        require(state != _paused, 'The new paused state should be different from the current paused state.');
+        _paused = state;
         if (_paused) emit PausedEvent(msg.sender);
         if (!_paused) emit UnpausedEvent(msg.sender);
     }
@@ -94,8 +91,17 @@ contract ERC165 {
      * @dev internal method for registering an interface
      */
     function _registerInterface(bytes4 interfaceId) internal {
-        require(interfaceId != 0xffffffff);
+        require(interfaceId != 0xffffffff, 'Interface ID not valid');
         _supportedInterfaces[interfaceId] = true;
+    }
+}
+
+// Contract to enable testing of ERC165
+contract ERC165TestContract is ERC165 {
+    constructor () public {}
+
+    function registerInterface(bytes4 interfaceId) public {
+        _registerInterface(interfaceId);
     }
 }
 
