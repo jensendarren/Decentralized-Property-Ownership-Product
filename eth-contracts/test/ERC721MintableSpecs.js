@@ -32,7 +32,12 @@ contract('ERC721Mintable contract', accounts => {
             it('should be possible to mint tokens', async () => {
                 await erc721mintable.mint(tokenOwner1, tokenId1);
                 await erc721mintable.mint(tokenOwner2, tokenId2);
-                await erc721mintable.mint(tokenOwner2, tokenId3);
+                let tx = await erc721mintable.mint(tokenOwner2, tokenId3);
+                truffleAssert.eventEmitted(tx, 'Transfer', (e) => {
+                    return  e.from == owner &&
+                            e.to == tokenOwner2 &&
+                            e.tokenId == tokenId3;
+                })
             })
         })
 
@@ -101,8 +106,45 @@ contract('ERC721Mintable contract', accounts => {
                     expect(await erc721mintable.getApproved(tokenId1)).to.be.eq(newTokenOwner);
                 })
             })
-        })
 
+            describe('invoking a transfer', async () => {
+                it('should not be possible to complete the token transfer if the caller is not the owner of the token', async () => {
+                    await truffleAssert.reverts(
+                        erc721mintable.transferFrom(nonOwnerAccount, newTokenOwner, tokenId1),
+                        'Caller is not the token owner or an approved operator for the token owner'
+                    )
+                })
+                it('should not be possible to complete the token transfer if the from address is the not the owner of the token', async () => {
+                    await truffleAssert.reverts(
+                        erc721mintable.transferFrom(tokenOwner1, newTokenOwner, tokenId2),
+                        'Caller is not the token owner or an approved operator for the token owner'
+                    )
+                })
+                it('should revert of the to address is a zero non valid address', async () => {
+                    await truffleAssert.reverts(
+                        erc721mintable.transferFrom(tokenOwner2, zero_address, tokenId2, {from: tokenOwner2}),
+                        'Token must be transfered to a valid address'
+                    )
+                })
+                it('when the transfer is successful then the owner counters should be adjusted and an event emitted', async() => {
+                    let prevBalanceCurrentOwner = parseInt(await erc721mintable.balanceOf(tokenOwner2));
+                    let prevBalanceNewOwner = parseInt(await erc721mintable.balanceOf(newTokenOwner));
+                    let tx = await erc721mintable.transferFrom(tokenOwner2, newTokenOwner, tokenId2, {from: tokenOwner2});
+                    // ensure that the expected event is emitted
+                    truffleAssert.eventEmitted(tx, 'Transfer', (e) => {
+                        return  e.from == tokenOwner2 &&
+                                e.to == newTokenOwner &&
+                                e.tokenId == tokenId2;
+                    })
+                    // Check the balances have been updated for the previous and new owners.
+                    expect(parseInt(await erc721mintable.balanceOf(tokenOwner2))).to.be.eq(prevBalanceCurrentOwner - 1);
+                    expect(parseInt(await erc721mintable.balanceOf(newTokenOwner))).to.be.eq(prevBalanceNewOwner + 1);
+
+                    // Check the token owner of the token is updated to the new token owner
+                    expect(await erc721mintable.ownerOf(tokenId2)).to.be.eq(newTokenOwner);
+                })
+            })
+        })
 
         // token uri should be complete i.e: https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/1
         xit('should return token uri', async function () {

@@ -188,7 +188,7 @@ contract ERC721Mintable is Pausable, ERC165 {
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public {
-        require(_isApprovedOrOwner(msg.sender, tokenId));
+        require(_isApprovedOrOwner(msg.sender, tokenId), 'Caller is not the token owner or an approved operator for the token owner');
 
         _transferFrom(from, to, tokenId);
     }
@@ -199,7 +199,7 @@ contract ERC721Mintable is Pausable, ERC165 {
 
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory _data) public {
         transferFrom(from, to, tokenId);
-        require(_checkOnERC721Received(from, to, tokenId, _data));
+        require(_checkOnERC721Received(from, to, tokenId, _data), 'The target is not a valid contract');
     }
 
     /**
@@ -240,16 +240,16 @@ contract ERC721Mintable is Pausable, ERC165 {
     // @dev Internal function to transfer ownership of a given token ID to another address.
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
     function _transferFrom(address from, address to, uint256 tokenId) internal {
+        require(ownerOf(tokenId) == from, 'The owner is not the from address');
+        require(to != address(0x0), 'Token must be transfered to a valid address');
+        _clearApproval(tokenId);
 
-        // TODO: require from address is the owner of the given token
+        _ownedTokensCount[from].decrement();
+        _ownedTokensCount[to].increment();
 
-        // TODO: require token is being transfered to valid address
+        _tokenOwner[tokenId] = to;
 
-        // TODO: clear approval
-
-        // TODO: update token counts & transfer ownership of the token ID
-
-        // TODO: emit correct event
+        emit Transfer(from, to, tokenId);
     }
 
     /**
