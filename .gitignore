@@ -2,13 +2,6 @@ eth-contracts/build
 
 node_modules
 
-zokrates/code/square/proof.json
-zokrates/code/square/out
-zokrates/code/square/out.code
-zokrates/code/square/proving.key
-zokrates/code/square/verification.key
-zokrates/code/square/witness
-
 .secret
 
 TODO.txt
