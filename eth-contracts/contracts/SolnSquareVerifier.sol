@@ -1,19 +1,17 @@
-pragma solidity >=0.4.21 <0.6.0;
+pragma solidity ^0.5.5;
+import './ERC721Mintable.sol';
 
-contract SolnSquareVerifier {
-
-  constructor() public{
-  }
-
+contract SolnSquareVerifier is CustomERC721Token {
+    Verifier zksnark;
+    constructor(address verifierContractAddress, string memory name, string memory symbol) public
+    CustomERC721Token(name, symbol) {
+        zksnark = Verifier(verifierContractAddress);
+    }
 }
 
-// TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
-
-
-
-// TODO define another contract named SolnSquareVerifier that inherits from your ERC721Mintable class
-
-
+contract Verifier {
+    function verifyTx(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint[2] memory input) public returns(bool);
+}
 
 // TODO define a solutions struct that can hold an index & an address
 
