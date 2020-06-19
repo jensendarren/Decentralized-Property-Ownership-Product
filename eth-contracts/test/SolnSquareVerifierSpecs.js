@@ -4,6 +4,7 @@
 
 var Verifier = artifacts.require('verifier');
 var SolnSquareVerifier = artifacts.require('SolnSquareVerifier');
+var { proof, inputs } = require('./proof.json');
 // const truffleAssert = require('truffle-assertions');
 
 contract('SolnSquareVerifier contract', accounts => {
@@ -24,6 +25,11 @@ contract('SolnSquareVerifier contract', accounts => {
         it('should be able to check the metadata', async () => {
           expect(await solnSquareVerifier.name()).to.be.eq(name);
           expect(await solnSquareVerifier.symbol()).to.be.eq(symbol);
-      })
+        })
+
+        it('should be possible to submit a solution', async () => {
+          let key = await solnSquareVerifier.submitSolution.call(proof.a, proof.b, proof.c, inputs);
+          console.log(key);
+        })
     })
   })
