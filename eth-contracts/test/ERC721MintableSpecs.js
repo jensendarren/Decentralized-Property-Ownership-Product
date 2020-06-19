@@ -145,14 +145,5 @@ contract('ERC721Mintable contract', accounts => {
                 })
             })
         })
-
-        // token uri should be complete i.e: https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/1
-        xit('should return token uri', async function () {
-
-        })
-
-        xit('should transfer token from one owner to another', async function () {
-
-        })
     });
 })

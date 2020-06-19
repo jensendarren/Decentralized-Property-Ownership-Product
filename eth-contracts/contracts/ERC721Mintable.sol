@@ -4,7 +4,7 @@ import 'openzeppelin-solidity/contracts/utils/Address.sol';
 import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
 import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
 import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
-// import "./Oraclize.sol";
+import "./Oraclize.sol";
 
 contract Ownable {
     address private _owner;
@@ -461,11 +461,11 @@ contract ERC721Enumerable is ERC165, ERC721Mintable {
     }
 }
 
-contract ERC721Metadata is ERC721Enumerable {//, usingOraclize {
+contract ERC721Metadata is ERC721Enumerable, usingOraclize {
+    string private _name;
+    string private _symbol;
+    string private _baseTokenURI;
 
-    // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
-
-    // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
     mapping(uint256 => string) private _tokenURIs;
 
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
@@ -476,28 +476,36 @@ contract ERC721Metadata is ERC721Enumerable {//, usingOraclize {
      *     bytes4(keccak256('tokenURI(uint256)'))
      */
 
-
     constructor (string memory name, string memory symbol, string memory baseTokenURI) public {
-        // TODO: set instance var values
+        _name = name;
+        _symbol = symbol;
+        _baseTokenURI = baseTokenURI;
 
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
-    // TODO: create external getter functions for name, symbol, and baseTokenURI
+    function name() external view returns(string memory) {
+        return _name;
+    }
+
+    function symbol() external view returns(string memory) {
+        return _symbol;
+    }
+
+    function baseTokenURI() external view returns(string memory) {
+        return _baseTokenURI;
+    }
 
     function tokenURI(uint256 tokenId) external view returns (string memory) {
-        require(_exists(tokenId));
+        require(_exists(tokenId), 'Token Id does not exist');
         return _tokenURIs[tokenId];
     }
 
-
-    // TODO: Create an internal function to set the tokenURI of a specified tokenId
-    // It should be the _baseTokenURI + the tokenId in string form
-    // TIP #1: use strConcat() from the imported oraclizeAPI lib to set the complete token URI
-    // TIP #2: you can also use uint2str() to convert a uint to a string
-        // see https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol for strConcat()
-    // require the token exists before setting
-
+    function setTokenURI(uint256 tokenId) internal {
+        require(_exists(tokenId), 'Token Id does not exist');
+        string memory tokenURI = strConcat(_baseTokenURI, uint2str(tokenId));
+        _tokenURIs[tokenId] = tokenURI;
+    }
 }
 
 //  TODO's: Create CustomERC721Token contract that inherits from the ERC721Metadata contract. You can name this contract as you please
