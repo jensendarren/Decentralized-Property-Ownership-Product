@@ -1,22 +1,27 @@
 pragma solidity ^0.5.5;
 import './ERC721Mintable.sol';
+import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
 
 contract SolnSquareVerifier is CustomERC721Token {
     Verifier zksnark;
 
-    event SolutionSubmitted(address prover);
+    using SafeMath for uint256;
+
+    uint256 private solutionsCount = 1;
+
+    event SolutionSubmitted(bytes32 key, address prover);
     constructor(address verifierContractAddress, string memory name, string memory symbol) public
     CustomERC721Token(name, symbol) {
         zksnark = Verifier(verifierContractAddress);
     }
 
     struct Solution {
-        uint8 index;
+        uint256 index;
         address prover;
         bool valid;
     }
 
-    mapping(bytes32 => Solution) solutions;
+    mapping(bytes32 => Solution) public solutions;
 
     function submitSolution(
         uint256[2] memory a,
@@ -24,7 +29,23 @@ contract SolnSquareVerifier is CustomERC721Token {
         uint256[2] memory c,
         uint256[2] memory input
     ) public returns(bytes32) {
+        require(zksnark.verifyTx(a, b, c, input), "Solution is not valid.");
         bytes32 key = getSolutionKey(input);
+        require(
+            solutions[key].prover == address(0),
+            "Solution already submitted by prover."
+        );
+
+        solutions[key] = Solution({
+            index: solutionsCount,
+            prover: msg.sender,
+            valid: true
+        });
+
+        solutionsCount.add(1);
+
+        emit SolutionSubmitted(key, msg.sender);
+
         return key;
     }
 
@@ -36,11 +57,6 @@ contract SolnSquareVerifier is CustomERC721Token {
 contract Verifier {
     function verifyTx(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint[2] memory input) public returns(bool);
 }
-
-
-
-
-// TODO Create a function to add the solutions to the array and emit the event
 
 
 
