@@ -4,7 +4,7 @@ import 'openzeppelin-solidity/contracts/utils/Address.sol';
 import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
 import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
 import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
-import "./Oraclize.sol";
+import "./provableAPI.sol";
 
 contract Ownable {
     address private _owner;
@@ -461,7 +461,7 @@ contract ERC721Enumerable is ERC165, ERC721Mintable {
     }
 }
 
-contract ERC721Metadata is ERC721Enumerable, usingOraclize {
+contract ERC721Metadata is ERC721Enumerable, usingProvable {
     string private _name;
     string private _symbol;
     string private _baseTokenURI;

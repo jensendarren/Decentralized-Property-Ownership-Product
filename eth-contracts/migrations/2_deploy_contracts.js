@@ -4,6 +4,6 @@ var SolnSquareVerifier = artifacts.require("./SolnSquareVerifier.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(SquareVerifier).then(() => {
-    deployer.deploy(SolnSquareVerifier, SquareVerifier.address, 'KH_PROPERTY_TOKEN', 'KHPT');
+    return deployer.deploy(SolnSquareVerifier, SquareVerifier.address, 'KH_PROPERTY_TOKEN', 'KHPT');
   });
 };
