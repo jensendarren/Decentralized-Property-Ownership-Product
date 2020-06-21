@@ -33,7 +33,7 @@ To run the test suite for the smart contracts:
 1. In one terminal window, start ganache-cli `ganache-cli`
 1. In a separate terminal window, run the smart contract specs via `truffle test`
 
-After following the above process, you should see all the tests passing as they are on [Travis CI]().
+After following the above process, you should see all the tests passing as they are on [Travis CI](https://travis-ci.org/jensendarren/Udacity-Blockchain-Capstone).
 
 ## ZoKrates
 
