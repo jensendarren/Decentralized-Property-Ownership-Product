@@ -89,7 +89,7 @@ mv proof.json proof10.json
 
 ### Deployed contrats to Rinkeby
 
-Use an [Infura project](https://infura.io) to deploy to Rinkeby. Take a look in [truffle-config](truffle-config.js) file to see the Rinkby network configuration.
+Use an [Infura project](https://infura.io) to deploy to Rinkeby. Take a look in [truffle-config](./eth-contracts/truffle-config.js) file to see the Rinkby network configuration.
 
 To migrate contracts to the Rinkeby network run:
 
@@ -99,8 +99,8 @@ truffle migrate --network rinkeby
 
 The __Verifier__ and __SolnSquareVerifier__ Contracts are already deployed to Rinkeby at the following addresses:
 
-[Verifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794) __0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794__
-[SolnSquareVerifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x70797237915074795Adc107F3751710c6eE58e4f) __0x70797237915074795Adc107F3751710c6eE58e4f__
+* [Verifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794) __0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794__
+* [SolnSquareVerifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x70797237915074795Adc107F3751710c6eE58e4f) __0x70797237915074795Adc107F3751710c6eE58e4f__
 
 Below are the truffle migration logs for the contract deployments:
 
