@@ -1,5 +1,7 @@
 # Udacity Blockchain Capstone: Decentralized Property Ownership Product.
 
+[![Build Status](https://travis-ci.org/jensendarren/Udacity-Blockchain-Capstone.svg?branch=master)](https://travis-ci.org/jensendarren/Udacity-Blockchain-Capstone)
+
 This application is the __final project__ (capstone) for the [Blockchain Nanodegree](https://www.udacity.com/course/blockchain-developer-nanodegree--nd1309) with __Udacity__. Enjoy and feel free to comment! This project builds upon the knowledge gained in the [Blockchain Nanodegree](https://www.udacity.com/course/blockchain-developer-nanodegree--nd1309) course in order to build a __decentralized property ownership product using ERC-721 Tokens and zkSNARKS for zero knowledge proof of ownership__.
 
 ## Truffle version and OpenZeppelin version used in the project.
