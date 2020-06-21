@@ -186,6 +186,26 @@ Once tokens are available for auction on OpenSea they can be purchased!
 
 The trading activity for the KHPT tokens can be viewed in the [OpenSea Activity Log](https://rinkeby.opensea.io/activity/kh-property-token) for the _KH_PROPERTY_TOKEN Stream_.
 
+### Issue Reporting
+
+If you experience with bugs or need further improvement, please create a new issue under [Issues](https://github.com/jensendarren/Udacity-Blockchain-Capstone/issuess).
+
+### Contributing to the Decentralized Property Ownership Product!
+
+Pull requests are very welcome. Before submitting a pull request, please make sure that your changes are well tested. Pull requests without tests will not be accepted. In this project we currently use Truffle Tests (Mocha JS / Chai JS).
+
+### Authors
+
+This **Decentralized Property Ownership Product** application was developed as part of the Blockchain Nanodegree with [Udacity](http://www.udacity.com) and [Darren Jensen](https://www.linkedin.com/in/jensendarren1/).
+
+### License
+
+This **Decentralized Property Ownership Product** application is released under [AGPL](http://www.gnu.org/licenses/agpl-3.0-standalone.html)
+
+### Disclaimer
+
+This application is part of a _project assignment_ and is most definitely __not__ suitable for Production use! :)
+
 # Project Resources
 
 * [Remix - Solidity IDE](https://remix.ethereum.org/)
