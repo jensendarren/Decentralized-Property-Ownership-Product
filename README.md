@@ -89,7 +89,15 @@ mv proof.json proof10.json
 
 ### Deployed contrats to Rinkeby
 
-The __Verifier__ and __SolnSquareVerifier__ Contracts are deployed to Rinkeby at the following addresses:
+Use an [Infura project](https://infura.io) to deploy to Rinkeby. Take a look in [truffle-config](truffle-config.js) file to see the Rinkby network configuration.
+
+To migrate contracts to the Rinkeby network run:
+
+```
+truffle migrate --network rinkeby
+```
+
+The __Verifier__ and __SolnSquareVerifier__ Contracts are already deployed to Rinkeby at the following addresses:
 
 [Verifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794) __0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794__
 [SolnSquareVerifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x70797237915074795Adc107F3751710c6eE58e4f) __0x70797237915074795Adc107F3751710c6eE58e4f__
@@ -184,7 +192,24 @@ Once tokens are available for auction on OpenSea they can be purchased!
 
 ### Trading activity on OpenSea
 
-The trading activity for the KHPT tokens can be viewed in the [OpenSea Activity Log](https://rinkeby.opensea.io/activity/kh-property-token) for the _KH_PROPERTY_TOKEN Stream_.
+The trading activity for the __KHPT tokens__ can be viewed in the [OpenSea Activity Log](https://rinkeby.opensea.io/activity/kh-property-token) for the _KH_PROPERTY_TOKEN Stream_.
+
+The 5 purchased / sold / transfered tokens are:
+
+* [Cozy family home](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/1)
+* [Luxury Home](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/2)
+* [Manufacturing Warehouse](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/3)
+* [Small Condo](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/4)
+* [Floating House](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/5)
+
+The 5 unpurchased (still owned by the original contract owner) tokens are:
+
+* [KH_PROPERTY_TOKEN #6](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/6)
+* [KH_PROPERTY_TOKEN #7](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/7)
+* [KH_PROPERTY_TOKEN #8](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/8)
+* [KH_PROPERTY_TOKEN #9](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/9)
+* [KH_PROPERTY_TOKEN #10](https://rinkeby.opensea.io/assets/0x70797237915074795adc107f3751710c6ee58e4f/10)
+
 
 ### Issue Reporting
 
