@@ -1,4 +1,4 @@
-let VerifierContract = artifacts.require('verifier');
+let VerifierContract = artifacts.require('Verifier');
 var { proof, inputs } = require('./proof.json');
 const truffleAssert = require('truffle-assertions');
 

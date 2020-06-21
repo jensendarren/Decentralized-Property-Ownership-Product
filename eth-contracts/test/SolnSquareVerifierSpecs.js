@@ -1,4 +1,4 @@
-var Verifier = artifacts.require('verifier');
+var Verifier = artifacts.require('Verifier');
 var SolnSquareVerifier = artifacts.require('SolnSquareVerifier');
 var { proof, inputs } = require('./proof.json');
 var { proof1, inputs1 } = require('./proof1.json');
