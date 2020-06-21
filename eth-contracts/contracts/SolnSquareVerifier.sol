@@ -18,7 +18,7 @@ contract SolnSquareVerifier is CustomERC721Token {
     struct Solution {
         uint256 index;
         address prover;
-        bool valid;
+        bool minted;
     }
 
     mapping(bytes32 => Solution) public solutions;
@@ -39,10 +39,10 @@ contract SolnSquareVerifier is CustomERC721Token {
         solutions[key] = Solution({
             index: solutionsCount,
             prover: msg.sender,
-            valid: true
+            minted: false
         });
 
-        solutionsCount.add(1);
+        solutionsCount = solutionsCount.add(1);
 
         emit SolutionSubmitted(key, msg.sender);
 
@@ -52,6 +52,17 @@ contract SolnSquareVerifier is CustomERC721Token {
     function getSolutionKey(uint256[2] memory input) internal returns(bytes32) {
         return keccak256(abi.encodePacked(input[0], input[1]));
     }
+
+    function mintNFT(uint256[2] memory input, address to) public returns (bool) {
+        bytes32 key = getSolutionKey(input);
+        require(solutions[key].prover != address(0x0), "Solution does not exist.");
+        require(solutions[key].minted == false, "Token is already minted.");
+        require(solutions[key].prover == to, "Only solution prover can mint this token");
+
+        super.mint(to, solutions[key].index);
+        solutions[key].minted = true;
+        return true;
+    }
 }
 
 contract Verifier {
@@ -60,6 +71,4 @@ contract Verifier {
 
 
 
-// TODO Create a function to mint new NFT only after the solution has been verified
-//  - make sure the solution is unique (has not been used before)
-//  - make sure you handle metadata as well as tokenSuplly
+
