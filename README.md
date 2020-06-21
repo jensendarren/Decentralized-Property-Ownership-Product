@@ -8,7 +8,7 @@ This project was built using the following framework versions:
 
 * Truffle v5.1.14-nodeLTS.0 (core: 5.1.13)
 * Ganache CLI v6.9.1 (ganache-core: 2.10.2)
-* OpenZeppelin (openzeppelin-solidity) v2.1.2
+* OpenZeppelin (openzeppelin-solidity) v2.5.1
 * Solidity v0.5.16 (solc-js)
 * Node v12.18.1
 * Web3.js v1.2.1
@@ -20,7 +20,7 @@ To run the test suite for the smart contracts:
 
 1. Clone this repo
 1. Change into the project directory `cd Udacity-Blockchain-Capstone/`
-1. Ensure you already have npm v6.14.5 and node v12.18.1 installed.
+1. Ensure you already have __npm v6.14.5__ and __node v12.18.1__ installed.
 1. Install dependenceis `npm i`
 1. Install Ganache CLI `npm i -g ganache-cli`
 1. Install Truffle `npm i -g truffle@nodeLTS`
