@@ -1,6 +1,37 @@
 # Udacity Blockchain Capstone: Decentralized Property Ownership Product.
 
-The capstone will build upon the knowledge you have gained in the course in order to build a decentralized property ownership product using ERC-721 Tokens and zkSNARKS for zero knowledge proof of ownership.
+This application is the __final project__ (capstone) for the [Blockchain Nanodegree](https://www.udacity.com/course/blockchain-developer-nanodegree--nd1309) with __Udacity__. Enjoy and feel free to comment! This project builds upon the knowledge gained in the [Blockchain Nanodegree](https://www.udacity.com/course/blockchain-developer-nanodegree--nd1309) course in order to build a __decentralized property ownership product using ERC-721 Tokens and zkSNARKS for zero knowledge proof of ownership__.
+
+## Truffle version and OpenZeppelin version used in the project.
+
+This project was built using the following framework versions:
+
+* Truffle v5.1.14-nodeLTS.0 (core: 5.1.13)
+* Ganache CLI v6.9.1 (ganache-core: 2.10.2)
+* OpenZeppelin (openzeppelin-solidity) v2.1.2
+* Solidity v0.5.16 (solc-js)
+* Node v12.18.1
+* Web3.js v1.2.1
+* Truffle Assertions v0.9.2
+
+## Running tests
+
+To run the test suite for the smart contracts:
+
+1. Clone this repo
+1. Change into the project directory `cd Udacity-Blockchain-Capstone/`
+1. Ensure you already have npm v6.14.5 and node v12.18.1 installed.
+1. Install dependenceis `npm i`
+1. Install Ganache CLI `npm i -g ganache-cli`
+1. Install Truffle `npm i -g truffle@nodeLTS`
+1. Check truffle version by running `truffle version`.
+1. Change into the __eth-contracts__ directory `cd eth-contracts`
+1. Create an empty __.secret__ file `touch .secret`
+1. Compile the contracts `truffle compile`
+1. In one terminal window, start ganache-cli `ganache-cli`
+1. In a separate terminal window, run the smart contract specs via `truffle test`
+
+After following the above process, you should see all the tests passing as they are on [Travis CI]().
 
 ## ZoKrates
 
@@ -10,7 +41,7 @@ This project uses ZoKrates for implementing zkSNARKS. To run ZoKrates in a Docke
 docker run -v $(pwd)/zokrates/code:/home/zokrates/code -ti zokrates/zokrates:0.4.6 /bin/bash
 ```
 
-In the running container bash session run the following to compile the proof code, setup and export the verifier contract.
+In the running container terminal execute the following commands to compile the proof code, setup and export the verifier contract.
 
 ```
 cd code/square
@@ -19,7 +50,7 @@ cd code/square
 ~/zokrates export-verifier
 ```
 
-Now generate 10 differnt unique proofs ready for the NFT minting process
+Now generate 10 different unique proofs ready for the NFT minting process:
 
 ```
 ~/zokrates compute-witness -a 1 1
@@ -56,10 +87,10 @@ mv proof.json proof10.json
 
 ### Deployed contrats to Rinkeby
 
-The Verifier and SolnSquareVerifier Contracts are deployed to Rinkeby at the following addresses:
+The __Verifier__ and __SolnSquareVerifier__ Contracts are deployed to Rinkeby at the following addresses:
 
-0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794 [Verifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794)
-0x70797237915074795Adc107F3751710c6eE58e4f [SolnSquareVerifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x70797237915074795Adc107F3751710c6eE58e4f)
+[Verifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794) __0x32F13a3Cd59dDC8148deE0CD1B8fACbcA5D93794__
+[SolnSquareVerifier Contract on Rinkeby](https://rinkeby.etherscan.io/address/0x70797237915074795Adc107F3751710c6eE58e4f) __0x70797237915074795Adc107F3751710c6eE58e4f__
 
 Below are the truffle migration logs for the contract deployments:
 
@@ -98,24 +129,24 @@ Deploying 'SolnSquareVerifier'
 
 Below are links to the contract ABIs:
 
-[Verifier Contract ABI](eth-contracts/abiVerifier.json).
-[SolnSquareVerifier Contract ABI](eth-contracts/abiSolnSquareVerifier.json).
+* [Verifier Contract ABI](eth-contracts/abiVerifier.json).
+* [SolnSquareVerifier Contract ABI](eth-contracts/abiSolnSquareVerifier.json).
 
 ### Mint tokens via MyEtherWallet
 
-Steps to mint tokens via [MEW](www.myetherwallet.com)
+Steps to mint tokens via [MEW](https://www.myetherwallet.com/)
 
-1. Open [MEW](www.myetherwallet.com) homepage.
+1. Open [MEW](https://www.myetherwallet.com/) homepage.
 1. Select Access via MetaMask
-1. Make sure you are logged into MetaMask and connected to Rinkeby.
-1. Click 'Access My Wallet' button
+1. Make sure you are logged into MetaMask and connected to the Rinkeby network.
+1. Click _Access My Wallet_ button
 1. Click [Interact with Contract](https://www.myetherwallet.com/interface/interact-with-contract) link
-1. Paste in the deployed contract address (e.g. 0x70797237915074795Adc107F3751710c6eE58e4f) and the [Contract API](eth-contracts/abiSolnSquareVerifier.json).
-1. Select the mint function (NOT the mintNFT function!) so that you can mint 10 tokens to your own address on the Rinkby network.
+1. Paste in the deployed contract address (e.g. __0x70797237915074795Adc107F3751710c6eE58e4f__) and the [SolnSquareVerifier Contract ABI](eth-contracts/abiSolnSquareVerifier.json).
+1. Select the __mint__ function (NOT the mintNFT function!) so that you can mint 10 tokens to your own address on the Rinkby network without having to submit a proof. This is OK for the testing of this contract for this case.
 1. Paste your address from MetaMask into the __To (address)__ field and the __TokenID (unit256)__ field set to any number. Try 99 first for testing.
 1. Confirm the transaction with MetaMask
 1. View the [transaction on Ethersacn](https://rinkeby.etherscan.io/tx/0xe89898b71e9aea18e1bcaa1c2e0ab9574d5a732cb4efb244c28c93746cfd3af2).
-
+1. Continue to mint TokenIds 1 to 10.
 
 ### Token KH_PROPERTY_TOKEN (KHPT) Etherscan Token Tracker
 
@@ -136,22 +167,22 @@ Once the contract is deployed and tokens are minted, its possible to display the
 Once your storefront is created you can begin to auction your assets.
 
 1. Ensure that you are logged into MetaMask with the account that you used to mint the tokens earlier.
-1. Select each of the tokens one by one and click the Sell button.
-1. Set the price and other parameters as you see fit. For this example, I set all tokens to 0.1 ETH.
+1. Select each of the tokens one by one and click the __Sell__ button.
+1. Set the price and other parameters as you see fit. For this example, I set all token prices to __0.1 ETH__.
 1. A number of transactions will need to be performed the first time around then after that only a signed confirmation is required.
 
 ### Purchase items in OpenSea
 
 Once tokens are available for auction on OpenSea they can be purchased!
 
-1. Switch accounts in MetaMask to a different account to the current owner of all the tokens.
-1. Select a property and now you should be asked if you want to buy it.
-1. Click buy, sign the transaction, wait for confirmation and now you are the new owner.
+1. Switch accounts in MetaMask to a _different account_ to the current owner of all the tokens. Make sure that this account has some Ether!
+1. Select a property / token and now you should be asked if you want to buy it!
+1. Click __Buy__ button, sign the transaction, wait for confirmation and now you are the new owner of this property / token.
 1. You can verify this transfer of ownership via the [Etherscan Token Tracker](https://rinkeby.etherscan.io/token/0x70797237915074795adc107f3751710c6ee58e4f)
 
 ### Trading activity on OpenSea
 
-The trading activity for the KHPT tokens can be viewed in the [OpenSea activity log](https://rinkeby.opensea.io/activity/kh-property-token).
+The trading activity for the KHPT tokens can be viewed in the [OpenSea Activity Log](https://rinkeby.opensea.io/activity/kh-property-token) for the _KH_PROPERTY_TOKEN Stream_.
 
 # Project Resources
 
